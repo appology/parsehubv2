@@ -1,0 +1,24 @@
+{
+  "name": "parsehubv2",
+  "version": "1.0.0",
+  "description": "Turn dynamic websites into APIs with ParseHub",
+  "main": "parsehub.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/famyklebust/parsehubv2.git"
+  },
+  "keywords": [
+    "parsehub",
+    "crawl",
+    "api"
+  ],
+  "author": "Frode Myklebust <myklebust89@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/famyklebust/parsehubv2#readme",
+  "bugs": {
+    "url": "https://github.com/famyklebust/parsehubv2/issues"
+  },
+  "dependencies": {
+    "request": "^2.79.0"
+  }
+}
