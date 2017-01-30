@@ -1,6 +1,6 @@
 {
   "name": "parsehubv2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Turn dynamic websites into APIs with ParseHub",
   "main": "parsehub.js",
   "repository": {
