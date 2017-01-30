@@ -38,7 +38,7 @@ ParseHub.prototype.getProjectList = function (params, callback) {
 
 // get a project
 //
-// phub.getProject({ project_token: 'YOUR PROJECT TOKEN' }, function (err, phProject) {
+// phub.getProject(function (err, phProject) {
 //     console.log(phProject);
 // });
 //
