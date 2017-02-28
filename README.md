@@ -2,7 +2,7 @@
 
 # ParseHub v2
 
-This is an unofficial NodeJS library for [ParseHub](https://www.parsehub.com/), a platform that allows you turn dynamic websites into APIs.
+This is an unofficial Node.js library for [ParseHub](https://www.parsehub.com/), a platform that allows you turn dynamic websites into APIs.
 
 
 ## Install it

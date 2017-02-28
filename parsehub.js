@@ -11,11 +11,11 @@ var baseURL = 'https://www.parsehub.com/api/v2';
 // var phub = new ParseHub('YOUR API KEY');
 //
 function ParseHub(apiKey) {
-    if (!apiKey) {
-        throw new Error('Please specify a ParseHub API key');
-    } else {
-        this._apiKey = apiKey;
-    }
+	if (!apiKey) {
+		throw new Error('Please specify a ParseHub API key');
+	} else {
+		this._apiKey = apiKey;
+	}
 }
 
 // get a list of your projects
@@ -26,12 +26,12 @@ function ParseHub(apiKey) {
 //
 ParseHub.prototype.getProjectList = function (params, callback) {
 	params.api_key = this._apiKey;
-    request({ url: baseURL +  '/projects', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+	request({ url: baseURL +  '/projects', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
 		if (response.statusCode !== 200) {
 			callback(err);
 		} else {
 			var phProjectList = JSON.parse(body);
-            callback(err, phProjectList);
+			callback(err, phProjectList);
 		}
 	});
 };
@@ -43,19 +43,19 @@ ParseHub.prototype.getProjectList = function (params, callback) {
 // });
 //
 ParseHub.prototype.getProject = function (params, callback) {
-    if (!params || !params.project_token) {
-        throw new Error('Please specify a project token');
-    } else {
-        params.api_key = this._apiKey;
-        request({ url: baseURL +  '/projects/' + params.project_token, qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
-            if (response.statusCode !== 200) {
-                callback(err);
-            } else {
-                var phProject = JSON.parse(body);
-                callback(err, phProject);
-            }
-        });
-    }
+	if (!params || !params.project_token) {
+		throw new Error('Please specify a project token');
+	} else {
+		params.api_key = this._apiKey;
+		request({ url: baseURL +  '/projects/' + params.project_token, qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+			if (response.statusCode !== 200) {
+				callback(err);
+			} else {
+				var phProject = JSON.parse(body);
+				callback(err, phProject);
+			}
+		});
+	}
 };
 
 // run a project
@@ -65,19 +65,19 @@ ParseHub.prototype.getProject = function (params, callback) {
 // });
 //
 ParseHub.prototype.runProject = function (params, callback) {
-    if (!params || !params.project_token) {
-        throw new Error('Please specify a project token');
-    } else {
-        params.api_key = this._apiKey;
-        request({ url: baseURL +  '/projects/' + params.project_token + '/run', method: 'POST', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
-            if (response.statusCode !== 200) {
-                callback(err);
-            } else {
-                var phProjectRun = JSON.parse(body);
-                callback(err, phProjectRun);
-            }
-        });
-    }
+	if (!params || !params.project_token) {
+		throw new Error('Please specify a project token');
+	} else {
+		params.api_key = this._apiKey;
+		request({ url: baseURL +  '/projects/' + params.project_token + '/run', method: 'POST', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+			if (response.statusCode !== 200) {
+				callback(err);
+			} else {
+				var phProjectRun = JSON.parse(body);
+				callback(err, phProjectRun);
+			}
+		});
+	}
 };
 
 // get a project run
@@ -88,18 +88,18 @@ ParseHub.prototype.runProject = function (params, callback) {
 //
 ParseHub.prototype.getRun = function (params, callback) {
 	if (!params || !params.run_token) {
-        throw new Error('Please specify a run token');
-    } else {
-        params.api_key = this._apiKey;
-        request({ url: baseURL +  '/runs/' + params.run_token, qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
-            if (response.statusCode !== 200) {
-                callback(err);
-            } else {
-                var phRun = JSON.parse(body);
-                callback(err, phRun);
-            }
-        });
-    }
+		throw new Error('Please specify a run token');
+	} else {
+		params.api_key = this._apiKey;
+		request({ url: baseURL +  '/runs/' + params.run_token, qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+			if (response.statusCode !== 200) {
+				callback(err);
+			} else {
+				var phRun = JSON.parse(body);
+				callback(err, phRun);
+			}
+		});
+	}
 };
 
 // cancel a project run
@@ -110,18 +110,18 @@ ParseHub.prototype.getRun = function (params, callback) {
 //
 ParseHub.prototype.cancelRun = function (params, callback) {
 	if (!params || !params.run_token) {
-        throw new Error('Please specify a run token');
-    } else {
-        params.api_key = this._apiKey;
-        request({ url: baseURL +  '/runs/' + params.run_token + '/cancel', method: 'POST', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
-            if (response.statusCode !== 200) {
-                callback(err);
-            } else {
-                var phCancelledRun = JSON.parse(body);
-                callback(err, phCancelledRun);
-            }
-        });
-    }
+		throw new Error('Please specify a run token');
+	} else {
+		params.api_key = this._apiKey;
+		request({ url: baseURL +  '/runs/' + params.run_token + '/cancel', method: 'POST', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+			if (response.statusCode !== 200) {
+				callback(err);
+			} else {
+				var phCancelledRun = JSON.parse(body);
+				callback(err, phCancelledRun);
+			}
+		});
+	}
 };
 
 // delete a project run
@@ -132,18 +132,18 @@ ParseHub.prototype.cancelRun = function (params, callback) {
 //
 ParseHub.prototype.deleteRun = function (params, callback) {
 	if (!params || !params.run_token) {
-        throw new Error('Please specify a run token');
-    } else {
-        params.api_key = this._apiKey;
-        request({ url: baseURL +  '/runs/' + params.run_token, method: 'DELETE', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
-            if (response.statusCode !== 200) {
-                callback(err);
-            } else {
-                var phDeletedRun = JSON.parse(body);
-                callback(err, phDeletedRun);
-            }
-        });
-    }
+		throw new Error('Please specify a run token');
+	} else {
+		params.api_key = this._apiKey;
+		request({ url: baseURL +  '/runs/' + params.run_token, method: 'DELETE', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+			if (response.statusCode !== 200) {
+				callback(err);
+			} else {
+				var phDeletedRun = JSON.parse(body);
+				callback(err, phDeletedRun);
+			}
+		});
+	}
 };
 
 // get project run data
@@ -154,29 +154,33 @@ ParseHub.prototype.deleteRun = function (params, callback) {
 //
 ParseHub.prototype.getRunData = function (params, callback) {
 	if (!params || !params.run_token) {
-        throw new Error('Please specify a run token');
-    } else {
-        params.api_key = this._apiKey;
-        var req = request.get({ url: baseURL +  '/runs/' + params.run_token + '/data', qs: { api_key: params.api_key, format: 'json' } });
+		throw new Error('Please specify a run token');
+	} else {
+		params.api_key = this._apiKey;
+		var req = request.get({ url: baseURL +  '/runs/' + params.run_token + '/data', qs: { api_key: params.api_key, format: 'json' } });
 
-        req.on('error', function (err) {
-            callback(err);
-        });
-
-        req.on('response', function (res) {
-            var chunks = [];
-            res.on('data', function (chunk) {
-                chunks.push(chunk);
-            });
-
-            res.on('end', function () {
-                var buffer = Buffer.concat(chunks);
-                zlib.gunzip(buffer, function (err, phRunData) {
-                    callback(err, JSON.parse(phRunData));
-                });
-            });
+		req.on('error', function (err) {
+			callback(err);
 		});
-    }
+
+		req.on('response', function (res) {
+			var chunks = [];
+			res.on('data', function (chunk) {
+				chunks.push(chunk);
+			});
+
+			res.on('end', function () {
+				var buffer = Buffer.concat(chunks);
+				zlib.gunzip(buffer, function (err, phRunData) {
+					if (err) {
+						callback(err);
+					} else {
+						callback(err, JSON.parse(phRunData));
+					}
+				});
+			});
+		});
+	}
 };
 
 // get last ready project data
@@ -186,30 +190,34 @@ ParseHub.prototype.getRunData = function (params, callback) {
 // });
 //
 ParseHub.prototype.getLastReadyData = function (params, callback) {
-    if (!params || !params.project_token) {
-        throw new Error('Please specify a project token');
-    } else {
-        params.api_key = this._apiKey;
-        var req = request.get({ url: baseURL +  '/projects/' + params.project_token + '/last_ready_run/data', qs: { api_key: params.api_key, format: 'json' } });
+	if (!params || !params.project_token) {
+		throw new Error('Please specify a project token');
+	} else {
+		params.api_key = this._apiKey;
+		var req = request.get({ url: baseURL +  '/projects/' + params.project_token + '/last_ready_run/data', qs: { api_key: params.api_key, format: 'json' } });
 
-        req.on('error', function (err) {
-            callback(err);
-        });
-
-        req.on('response', function (res) {
-            var chunks = [];
-            res.on('data', function (chunk) {
-                chunks.push(chunk);
-            });
-
-            res.on('end', function () {
-                var buffer = Buffer.concat(chunks);
-                zlib.gunzip(buffer, function (err, phLastReadyData) {
-                    callback(err, JSON.parse(phLastReadyData));
-                });
-            });
+		req.on('error', function (err) {
+			callback(err);
 		});
-    }
+
+		req.on('response', function (res) {
+			var chunks = [];
+			res.on('data', function (chunk) {
+				chunks.push(chunk);
+			});
+
+			res.on('end', function () {
+				var buffer = Buffer.concat(chunks);
+				zlib.gunzip(buffer, function (err, phLastReadyData) {
+					if (err) {
+						callback(err);
+					} else {
+						callback(err, JSON.parse(phLastReadyData));
+					}
+				});
+			});
+		});
+	}
 };
 
 // export module
