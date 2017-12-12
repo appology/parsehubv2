@@ -18,6 +18,27 @@ function ParseHub(apiKey) {
 	}
 }
 
+// gets common request parameters plus additionally specificied parameters
+//
+//  this._getRequestParameters(params, ['start_url', 'start_value_override']);
+ParseHub.prototype._getRequestParameters = function(params, keys) {
+	var rp = {
+		api_key: this._apiKey,
+		format: 'json'
+	};
+
+	if(keys && keys.length > 0) {
+		for(var i = 0; i < keys.length; i++) {
+			var key = keys[i];
+			if(params[key]) {
+				rp[key] = params[key];
+			}
+		}
+	}
+
+	return rp;
+}
+
 // get a list of your projects
 //
 // phub.getProjectList(function (err, phProjectList) {
@@ -25,8 +46,8 @@ function ParseHub(apiKey) {
 // });
 //
 ParseHub.prototype.getProjectList = function (params, callback) {
-	params.api_key = this._apiKey;
-	request({ url: baseURL +  '/projects', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+	var rp = this._getRequestParameters(params, ['offset', 'limit', 'include_options']);
+	request.get({ url: baseURL +  '/projects', qs: rp }, function (err, response, body) {
 		if (response.statusCode !== 200) {
 			callback(err);
 		} else {
@@ -46,8 +67,8 @@ ParseHub.prototype.getProject = function (params, callback) {
 	if (!params || !params.project_token) {
 		throw new Error('Please specify a project token');
 	} else {
-		params.api_key = this._apiKey;
-		request({ url: baseURL +  '/projects/' + params.project_token, qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+		var rp = this._getRequestParameters(params, ['offset']);
+		request.get({ url: baseURL +  '/projects/' + params.project_token, qs: rp }, function (err, response, body) {
 			if (response.statusCode !== 200) {
 				callback(err);
 			} else {
@@ -68,8 +89,8 @@ ParseHub.prototype.runProject = function (params, callback) {
 	if (!params || !params.project_token) {
 		throw new Error('Please specify a project token');
 	} else {
-		params.api_key = this._apiKey;
-		request({ url: baseURL +  '/projects/' + params.project_token + '/run', method: 'POST', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+		var rp = this._getRequestParameters(params, ['start_url', 'start_template', 'start_value_override', 'send_email']);
+		request.post({ url: baseURL +  '/projects/' + params.project_token + '/run', form: rp }, function (err, response, body) {
 			if (response.statusCode !== 200) {
 				callback(err);
 			} else {
@@ -90,8 +111,8 @@ ParseHub.prototype.getRun = function (params, callback) {
 	if (!params || !params.run_token) {
 		throw new Error('Please specify a run token');
 	} else {
-		params.api_key = this._apiKey;
-		request({ url: baseURL +  '/runs/' + params.run_token, qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+		var rp = this._getRequestParameters(params);
+		request.get({ url: baseURL +  '/runs/' + params.run_token, qs: rp }, function (err, response, body) {
 			if (response.statusCode !== 200) {
 				callback(err);
 			} else {
@@ -112,8 +133,8 @@ ParseHub.prototype.cancelRun = function (params, callback) {
 	if (!params || !params.run_token) {
 		throw new Error('Please specify a run token');
 	} else {
-		params.api_key = this._apiKey;
-		request({ url: baseURL +  '/runs/' + params.run_token + '/cancel', method: 'POST', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+		var rp = this._getRequestParameters(params);
+		request.get({ url: baseURL +  '/runs/' + params.run_token + '/cancel', qs: rp }, function (err, response, body) {
 			if (response.statusCode !== 200) {
 				callback(err);
 			} else {
@@ -134,8 +155,8 @@ ParseHub.prototype.deleteRun = function (params, callback) {
 	if (!params || !params.run_token) {
 		throw new Error('Please specify a run token');
 	} else {
-		params.api_key = this._apiKey;
-		request({ url: baseURL +  '/runs/' + params.run_token, method: 'DELETE', qs: { api_key: params.api_key, format: 'json' } }, function (err, response, body) {
+		var rp = this._getRequestParameters(params);
+		request.del({ url: baseURL +  '/runs/' + params.run_token, qs: rp }, function (err, response, body) {
 			if (response.statusCode !== 200) {
 				callback(err);
 			} else {
@@ -156,8 +177,8 @@ ParseHub.prototype.getRunData = function (params, callback) {
 	if (!params || !params.run_token) {
 		throw new Error('Please specify a run token');
 	} else {
-		params.api_key = this._apiKey;
-		var req = request.get({ url: baseURL +  '/runs/' + params.run_token + '/data', qs: { api_key: params.api_key, format: 'json' } });
+		var rp = this._getRequestParameters(params);
+		var req = request.get({ url: baseURL +  '/runs/' + params.run_token + '/data', qs: rp });
 
 		req.on('error', function (err) {
 			callback(err);
@@ -193,8 +214,8 @@ ParseHub.prototype.getLastReadyData = function (params, callback) {
 	if (!params || !params.project_token) {
 		throw new Error('Please specify a project token');
 	} else {
-		params.api_key = this._apiKey;
-		var req = request.get({ url: baseURL +  '/projects/' + params.project_token + '/last_ready_run/data', qs: { api_key: params.api_key, format: 'json' } });
+		var rp = this._getRequestParameters(params);
+		var req = request.get({ url: baseURL +  '/projects/' + params.project_token + '/last_ready_run/data', qs: rp });
 
 		req.on('error', function (err) {
 			callback(err);
