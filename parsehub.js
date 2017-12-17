@@ -48,7 +48,7 @@ ParseHub.prototype._getRequestParameters = function(params, keys) {
 ParseHub.prototype.getProjectList = function (params, callback) {
 	var rp = this._getRequestParameters(params, ['offset', 'limit', 'include_options']);
 	request.get({ url: baseURL +  '/projects', qs: rp }, function (err, response, body) {
-		if (response.statusCode !== 200) {
+		if (!response || response.statusCode !== 200) {
 			callback(err);
 		} else {
 			var phProjectList = JSON.parse(body);
@@ -69,7 +69,7 @@ ParseHub.prototype.getProject = function (params, callback) {
 	} else {
 		var rp = this._getRequestParameters(params, ['offset']);
 		request.get({ url: baseURL +  '/projects/' + params.project_token, qs: rp }, function (err, response, body) {
-			if (response.statusCode !== 200) {
+			if (!response || response.statusCode !== 200) {
 				callback(err);
 			} else {
 				var phProject = JSON.parse(body);
@@ -91,7 +91,7 @@ ParseHub.prototype.runProject = function (params, callback) {
 	} else {
 		var rp = this._getRequestParameters(params, ['start_url', 'start_template', 'start_value_override', 'send_email']);
 		request.post({ url: baseURL +  '/projects/' + params.project_token + '/run', form: rp }, function (err, response, body) {
-			if (response.statusCode !== 200) {
+			if (!response || response.statusCode !== 200) {
 				callback(err);
 			} else {
 				var phProjectRun = JSON.parse(body);
@@ -113,7 +113,7 @@ ParseHub.prototype.getRun = function (params, callback) {
 	} else {
 		var rp = this._getRequestParameters(params);
 		request.get({ url: baseURL +  '/runs/' + params.run_token, qs: rp }, function (err, response, body) {
-			if (response.statusCode !== 200) {
+			if (!response || response.statusCode !== 200) {
 				callback(err);
 			} else {
 				var phRun = JSON.parse(body);
@@ -135,7 +135,7 @@ ParseHub.prototype.cancelRun = function (params, callback) {
 	} else {
 		var rp = this._getRequestParameters(params);
 		request.get({ url: baseURL +  '/runs/' + params.run_token + '/cancel', qs: rp }, function (err, response, body) {
-			if (response.statusCode !== 200) {
+			if (!response || response.statusCode !== 200) {
 				callback(err);
 			} else {
 				var phCancelledRun = JSON.parse(body);
@@ -157,7 +157,7 @@ ParseHub.prototype.deleteRun = function (params, callback) {
 	} else {
 		var rp = this._getRequestParameters(params);
 		request.del({ url: baseURL +  '/runs/' + params.run_token, qs: rp }, function (err, response, body) {
-			if (response.statusCode !== 200) {
+			if (!response || response.statusCode !== 200) {
 				callback(err);
 			} else {
 				var phDeletedRun = JSON.parse(body);
